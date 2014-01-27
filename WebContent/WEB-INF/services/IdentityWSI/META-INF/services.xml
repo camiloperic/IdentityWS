@@ -1,10 +1,25 @@
 <service name="IdentityWSI" >
 	<Description>
-		Please Type your service description here
+		Service description
 	</Description>
 	<messageReceivers>
 		<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-only" class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver" />
 		<messageReceiver  mep="http://www.w3.org/2004/08/wsdl/in-out"  class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
 	</messageReceivers>
 	<parameter name="ServiceClass" locked="false">br.sinples.wsi.IdentityWSI</parameter>
+	<module ref="rampart" />
+	<wsp:Policy wsu:Id="UsernameToken" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+	  <wsp:ExactlyOne>
+	    <wsp:All>
+	      <sp:SupportingTokens xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+	        <wsp:Policy>
+	          <sp:UsernameToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient"/>
+	        </wsp:Policy>
+	      </sp:SupportingTokens>
+	      <ramp:RampartConfig xmlns:ramp="http://ws.apache.org/rampart/policy">
+	      	<ramp:passwordCallbackClass>br.sinples.identity.Credentials</ramp:passwordCallbackClass>
+	      </ramp:RampartConfig>
+	    </wsp:All>
+	  </wsp:ExactlyOne>
+	</wsp:Policy>
 </service>

@@ -18,7 +18,7 @@
   </init-param>
   <init-param>
    <param-name>cors.allowed.headers</param-name>
-   <param-value>access-control-allow-origin, origin, soapaction, access-control-allow-methods, content-type</param-value>
+   <param-value>access-control-allow-origin, origin, soapaction, access-control-allow-methods, content-type, username, password</param-value>
   </init-param>
   <init-param> 
      <param-name>cors.exposed.headers</param-name> 
@@ -27,7 +27,7 @@
 <!--    <init-param>  -->
 <!--      <param-name>cors.support.credentials</param-name>  -->
 <!--      <param-value>true</param-value>  -->
-<!--    </init-param>  -->
+<!--    </init-param> -->
 <!--    <init-param>  -->
 <!--      <param-name>cors.preflight.maxage</param-name>  -->
 <!--      <param-value>10</param-value>  -->
@@ -73,4 +73,20 @@
     <servlet-name>AxisAdminServlet</servlet-name>
     <url-pattern>/axis2-admin/*</url-pattern>
   </servlet-mapping>
+   <servlet>
+   <servlet-name>SOAPMonitorService</servlet-name>
+   <!--<display-name>SOAPMonitorService</display-name>-->
+   <servlet-class>
+     org.apache.axis2.soapmonitor.servlet.SOAPMonitorService
+   </servlet-class>
+   <init-param>
+      <param-name>SOAPMonitorPort</param-name>
+      <param-value>5001</param-value>
+   </init-param>
+   <load-on-startup>1</load-on-startup>
+</servlet>
+<servlet-mapping>
+    <servlet-name>SOAPMonitorService</servlet-name>
+    <url-pattern>/SOAPMonitor</url-pattern>
+</servlet-mapping>
 </web-app>
